@@ -36,18 +36,25 @@ public final class MobileUtils {
     }
 
     //region DEVICE ACTIONS
-
+    
     /**
-     * Clears and updates a text field with new value.
+     * Updates the value of a web element (clears and types).
+     *
+     * @param element the element
+     * @param value   the new value
      */
     public static void updateValue(WebElement element, String value) {
         element.click();
         element.clear();
         element.sendKeys(value);
     }
-
+    
     /**
-     * Performs a tap action by coordinates via W3C actions.
+     * Taps at specific coordinates.
+     *
+     * @param x      the x coordinate
+     * @param y      the y coordinate
+     * @param driver the Appium driver
      */
     public static void tapByCoordinates(int x, int y, AppiumDriver driver) {
         log.info("{} {} Tapping coordinates ({}, {})", INFO_SHORT, INFO, x, y);
@@ -62,9 +69,11 @@ public final class MobileUtils {
 
         driver.perform(Collections.singletonList(tap));
     }
-
+    
     /**
-     * Taps a neutral part of the screen (center-top quarter).
+     * Taps a neutral area on the screen.
+     *
+     * @param driver the Appium driver
      */
     public static void tapNeutralArea(AppiumDriver driver) {
         int w = driver.manage().window().getSize().getWidth();
@@ -75,9 +84,11 @@ public final class MobileUtils {
 
         tapByCoordinates(x, y, driver);
     }
-
+    
     /**
-     * Performs a swipe up gesture (iOS: swipe, Android: swipeGesture).
+     * Swipes up on the screen.
+     *
+     * @param driver the Appium driver
      */
     public static void swipeUp(AppiumDriver driver) {
         log.info("{} {} Swipe up gesture", INFO_SHORT, INFO);
@@ -97,6 +108,12 @@ public final class MobileUtils {
         }
     }
 
+    /**
+     * Unwraps a Spring proxy to get the underlying WebDriver.
+     *
+     * @param driver the driver proxy
+     * @return the unwrapped driver
+     */
     public static WebDriver unwrap(WebDriver driver) {
         try {
             if (AopUtils.isAopProxy(driver)) {
@@ -110,6 +127,13 @@ public final class MobileUtils {
         }
     }
 
+    /**
+     * Controls the application state (activate, terminate, etc.).
+     *
+     * @param action the action to perform
+     * @param appId  the application ID
+     * @param driver the Appium driver
+     */
     public static void controlApp(String action, String appId, AppiumDriver driver) {
         WebDriver realDriver = MobileUtils.unwrap(driver);
 
@@ -156,6 +180,12 @@ public final class MobileUtils {
     //endregion
 
     //region ELEMENT CHECKERS
+    /**
+     * Checks if a button is enabled using platform-specific attributes.
+     *
+     * @param element the web element
+     * @return true if enabled, false otherwise
+     */
     public static boolean isButtonEnabled(WebElement element) {
         try {
             if (isIos()) {
@@ -241,6 +271,12 @@ public final class MobileUtils {
         }
     }
 
+    /**
+     * Gets a list of text from a list of web elements.
+     *
+     * @param target the list of web elements
+     * @return the list of text strings
+     */
     public static java.util.List<String> getListOfText(List<WebElement> target) {
         return target.stream()
                 .map(MobileUtils::getActualText)
@@ -248,12 +284,24 @@ public final class MobileUtils {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Parses a string to double, removing non-numeric characters.
+     *
+     * @param raw the raw string
+     * @return the parsed double
+     */
     public static double getStringAsDouble(String raw) {
         return Double.parseDouble(raw.replaceAll("[^0-9.]", ""));
     }
     //endregion
 
     //region HARD WAITS
+    /**
+     * Performs a hard sleep (Thread.sleep).
+     *
+     * @param seconds the number of seconds to sleep
+     * @param reason  the reason for the sleep
+     */
     public static void hardSleep(long seconds, String reason) {
         log.warn("{} {} {} {}s - {} {}",
                 WARN_SHORT, YELLOW + WARN + RESET, WAIT,
@@ -265,10 +313,22 @@ public final class MobileUtils {
         }
     }
 
+    /**
+     * Performs a redirection sleep.
+     *
+     * @param seconds the number of seconds to sleep
+     * @param caller  the calling object
+     */
     public static void redirectionSleep(long seconds, Object caller) {
         hardSleep(seconds, "Before/After redirect to " + getPrettyName(caller));
     }
 
+    /**
+     * Performs a stabilization sleep.
+     *
+     * @param seconds the number of seconds to sleep
+     * @param caller  the calling object
+     */
     public static void stabilizationSleep(long seconds, Object caller) {
         hardSleep(seconds, "Before/After action in " + getPrettyName(caller));
     }

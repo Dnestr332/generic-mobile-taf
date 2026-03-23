@@ -27,16 +27,34 @@ public class LoginFlow {
         return screenResolver.resolveScreen(state);
     }
 
+    /**
+     * Taps on a login item.
+     *
+     * @param state the login state
+     * @param item  the login item
+     */
     public void tap(LoginState state, LoginItem item) {
         BaseScreen<?> screen = resolve(state);
         screen.click(item);
     }
 
+    /**
+     * Types a value into a login item.
+     *
+     * @param state the login state
+     * @param item  the login item
+     * @param value the value to type
+     */
     public void type(LoginState state, LoginItem item, String value) {
         BaseScreen<?> screen = resolve(state);
         screen.type(item, value);
     }
 
+    /**
+     * Performs a login flow for a specific user.
+     *
+     * @param user the app user
+     */
     public void loginAs(AppUser user) {
         log.info(">>>  {} {} Logging in as {}{}", INFO_SHORT, LENNY, GREEN, user);
         String phone = user.getPhone();

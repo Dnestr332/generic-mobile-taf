@@ -20,6 +20,12 @@ public final class EnvConfig {
             .ignoreIfMissing()
             .load();
 
+    /**
+     * Reads a configuration value from system property, environment variable, or .env file.
+     *
+     * @param key the configuration key
+     * @return the configuration value, or null if not found
+     */
     private static String read(String key) {
         String value = System.getProperty(key);
         if (value != null && !value.isBlank()) {

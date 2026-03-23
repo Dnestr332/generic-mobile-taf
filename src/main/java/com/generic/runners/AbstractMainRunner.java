@@ -9,9 +9,21 @@ import java.nio.file.Paths;
 
 public abstract class AbstractMainRunner extends AbstractTestNgRunner {
 
+    /**
+     * @return the Allure subfolder name
+     */
     protected abstract String allureSubFolder();
+
+    /**
+     * @return the name of the rerun file
+     */
     protected abstract String rerunFileName();
 
+    /**
+     * Performs setup before runner initialization.
+     *
+     * @param platform the platform name
+     */
     @Override
     protected void beforeRunnerInit(String platform) {
         resetRerunFile();

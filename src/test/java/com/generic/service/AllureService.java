@@ -19,6 +19,9 @@ public class AllureService {
 
     private final AppiumDriver driver;
 
+    /**
+     * Captures a screenshot and attaches it to the Allure report.
+     */
     public void attachScreenshot() {
         if (driver == null) return;
 

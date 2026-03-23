@@ -30,6 +30,13 @@ public class ElementActions {
     private final FailureCatcher failureCatcher;
 
     //region FIND ELEMENT
+    /**
+     * Finds a web element with a specific strategy.
+     *
+     * @param locator  the locator
+     * @param strategy the wait strategy
+     * @return the found web element
+     */
     public WebElement find(By locator, Strategy strategy) {
         return failureCatcher.withFailureCapture(FIND, locator,
                 () -> {
@@ -48,12 +55,25 @@ public class ElementActions {
         );
     }
 
+    /**
+     * Finds a web element with default strategy.
+     *
+     * @param locator the locator
+     * @return the found web element
+     */
     public WebElement find(By locator) {
         return find(locator, DEFAULT);
     }
     //endregion
 
     //region FIND LIST
+    /**
+     * Finds a list of web elements with a specific strategy.
+     *
+     * @param locator  the locator
+     * @param strategy the wait strategy
+     * @return the list of found web elements
+     */
     public List<WebElement> findList(By locator, Strategy strategy) {
         return failureCatcher.withFailureCapture(FIND_LIST, locator,
                 () -> {
@@ -75,12 +95,24 @@ public class ElementActions {
         );
     }
 
+    /**
+     * Finds a list of web elements with default strategy.
+     *
+     * @param locator the locator
+     * @return the list of found web elements
+     */
     public List<WebElement> findList(By locator) {
         return findList(locator, DEFAULT);
     }
     //endregion
 
     //region CLICK/TAP
+    /**
+     * Clicks on an element with a specific strategy.
+     *
+     * @param locator  the locator
+     * @param strategy the wait strategy
+     */
     public void click(By locator, Strategy strategy) {
         failureCatcher.withFailureCapture(CLICK, locator, null, () -> {
                     switch (strategy) {
@@ -110,14 +142,29 @@ public class ElementActions {
         );
     }
 
+    /**
+     * Clicks on an element with default strategy.
+     *
+     * @param locator the locator
+     */
     public void click(By locator) {
         click(locator, DEFAULT);
     }
 
+    /**
+     * Clicks on an element quickly without long waits.
+     *
+     * @param locator the locator
+     */
     public void fastClick(By locator) {
         click(locator, FAST_TRY);
     }
 
+    /**
+     * Clicks on an element using native mobile click (Appium).
+     *
+     * @param locator the locator
+     */
     public void clickNative(By locator) {
         failureCatcher.withFailureCapture(CLICK_BY_NATIVE, locator, null, () -> {
             try {
@@ -131,6 +178,12 @@ public class ElementActions {
     //endregion
 
     //region TYPE & GET TEXT
+    /**
+     * Types text into an element.
+     *
+     * @param locator the locator
+     * @param text    the text to type
+     */
     public void type(By locator, String text) {
         failureCatcher.withFailureCapture(
                 TYPE, locator, "'" + text + "'",
@@ -138,6 +191,13 @@ public class ElementActions {
         );
     }
 
+    /**
+     * Gets text from an element with a specific strategy.
+     *
+     * @param locator  the locator
+     * @param strategy the wait strategy
+     * @return the element text
+     */
     public String text(By locator, Strategy strategy) {
         return failureCatcher.withFailureCapture(GET_TEXT, locator, () -> {
                     switch (strategy) {
@@ -164,12 +224,24 @@ public class ElementActions {
         );
     }
 
+    /**
+     * Gets text from an element with default strategy.
+     *
+     * @param locator the locator
+     * @return the element text
+     */
     public String text(By locator) {
         return text(locator, DEFAULT);
     }
     //endregion
 
     //region CHECKERS
+    /**
+     * Checks if an element is visible.
+     *
+     * @param locator the locator
+     * @return true if visible, false otherwise
+     */
     public boolean isVisible(By locator) {
         try {
             return waits.visible(locator).isDisplayed();
@@ -178,6 +250,12 @@ public class ElementActions {
         }
     }
 
+    /**
+     * Checks if an element is visible quickly.
+     *
+     * @param locator the locator
+     * @return true if visible, false otherwise
+     */
     public boolean isQuickVisible(By locator) {
         try {
             WebElement el = waits.visibleShort(locator);
@@ -187,6 +265,12 @@ public class ElementActions {
         }
     }
 
+    /**
+     * Checks if an element is enabled.
+     *
+     * @param locator the locator
+     * @return true if enabled, false otherwise
+     */
     public boolean isEnabled(By locator) {
         try {
             WebElement el = waits.visibleShort(locator);

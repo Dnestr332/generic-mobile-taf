@@ -48,26 +48,56 @@ public class Waits {
     }
 
     //region ELEMENT WAITS
+    /**
+     * Waits for an element to be visible (long timeout).
+     *
+     * @param locator the locator
+     * @return the visible web element
+     */
     public WebElement visible(By locator) {
         return getWait(longTimeout)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    /**
+     * Waits for an element to be visible (short timeout).
+     *
+     * @param locator the locator
+     * @return the visible web element
+     */
     public WebElement visibleShort(By locator) {
         return getWait(shortTimeout)
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
+    /**
+     * Waits for multiple elements to be present.
+     *
+     * @param locator the locator
+     * @return the list of web elements
+     */
     public List<WebElement> visibleList(By locator) {
         return getWait(longTimeout)
                 .until(ExpectedConditions.presenceOfAllElementsLocatedBy(locator));
     }
 
+    /**
+     * Waits for an element to be clickable (long timeout).
+     *
+     * @param locator the locator
+     * @return the clickable web element
+     */
     public WebElement clickable(By locator) {
         return getWait(longTimeout)
                 .until(ExpectedConditions.elementToBeClickable(locator));
     }
 
+    /**
+     * Waits for an element to be clickable (short timeout).
+     *
+     * @param locator the locator
+     * @return the clickable web element
+     */
     public WebElement clickableShort(By locator) {
         return getWait(shortTimeout)
                 .until(ExpectedConditions.elementToBeClickable(locator));
@@ -75,14 +105,32 @@ public class Waits {
     //endregion
 
     //region FUNCTIONAL WAITS
+    /**
+     * Waits until a condition is true.
+     *
+     * @param condition the condition supplier
+     */
     public void until(BooleanSupplier condition) {
         getWait(longTimeout).until(driver -> condition.getAsBoolean());
     }
 
+    /**
+     * Waits until a condition is true and returns the result.
+     *
+     * @param condition the condition supplier
+     * @return the result of the condition
+     */
     public boolean untilReturn(BooleanSupplier condition) {
         return getWait(longTimeout).until(driver -> condition.getAsBoolean());
     }
 
+    /**
+     * Waits for an element's attribute to contain a specific value.
+     *
+     * @param locator   the locator
+     * @param attribute the attribute name
+     * @param value     the expected partial value
+     */
     public void attributeContains(By locator, String attribute, String value) {
         getWait(longTimeout).until(driver ->
                 Objects.requireNonNull(driver
@@ -94,6 +142,12 @@ public class Waits {
     //endregion
 
     //region SAFE CHECKERS
+    /**
+     * Safely checks if an element is visible (long timeout).
+     *
+     * @param locator the locator
+     * @return true if visible, false otherwise
+     */
     public boolean isVisible(By locator) {
         try {
             return visible(locator).isDisplayed();
@@ -102,6 +156,12 @@ public class Waits {
         }
     }
 
+    /**
+     * Safely checks if an element is visible (short timeout).
+     *
+     * @param locator the locator
+     * @return true if visible, false otherwise
+     */
     public boolean isQuickVisible(By locator) {
         try {
             return visibleShort(locator) != null;
@@ -110,6 +170,12 @@ public class Waits {
         }
     }
 
+    /**
+     * Safely checks if an element is clickable (short timeout).
+     *
+     * @param locator the locator
+     * @return true if clickable, false otherwise
+     */
     public boolean isClickable(By locator) {
         try {
             return clickableShort(locator).isEnabled();

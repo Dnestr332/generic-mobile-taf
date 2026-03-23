@@ -32,11 +32,17 @@ public class InitialScreen extends BaseScreen<InitialItem> implements Screen {
         };
     }
 
+    /**
+     * @return true if the initial title is visible
+     */
     @Override
     public boolean isTitleVisible() {
         return isVisible(InitialItem.INITIAL_TITLE);
     }
 
+    /**
+     * @return the text of the initial title
+     */
     @Override
     public String getTitleText() {
         return getText(InitialItem.INITIAL_TITLE);

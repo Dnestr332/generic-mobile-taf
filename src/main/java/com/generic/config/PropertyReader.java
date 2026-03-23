@@ -10,6 +10,11 @@ public final class PropertyReader {
 
     private final Properties properties = new Properties();
 
+    /**
+     * Constructs a PropertyReader for a given resource name.
+     *
+     * @param resourceName the name of the properties file in the classpath
+     */
     public PropertyReader(String resourceName) {
         try (InputStream is = Thread.currentThread()
                 .getContextClassLoader()
@@ -24,6 +29,12 @@ public final class PropertyReader {
         }
     }
 
+    /**
+     * Gets a property value by key.
+     *
+     * @param key the property key
+     * @return the property value
+     */
     public String getProperty(String key) {
         return properties.getProperty(key);
     }

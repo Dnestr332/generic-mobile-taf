@@ -27,6 +27,14 @@ public class LoginAssertions extends BaseAssertion {
         return screenResolver.resolveScreen(state);
     }
 
+    /**
+     * Verifies visibility of a login item.
+     *
+     * @param state     the login state
+     * @param item      the login item
+     * @param assertion the assertion type (STRICTLY/SOFTLY)
+     * @param visible   the expected visibility
+     */
     public void verifyVisible(LoginState state, LoginItem item,
                               AssertionState assertion, VisibleState visible) {
 
@@ -49,6 +57,14 @@ public class LoginAssertions extends BaseAssertion {
         }
     }
 
+    /**
+     * Verifies text of a login item equals to expected.
+     *
+     * @param state     the login state
+     * @param item      the login item
+     * @param assertion the assertion type (STRICTLY/SOFTLY)
+     * @param expected  the expected text
+     */
     public void verifyTextEquals(LoginState state, LoginItem item,
                                  AssertionState assertion, String expected) {
         BaseScreen<?> screen = resolve(state);
@@ -60,6 +76,13 @@ public class LoginAssertions extends BaseAssertion {
         }
     }
 
+    /**
+     * Verifies text of a login item contains a partial string.
+     *
+     * @param state   the login state
+     * @param item    the login item
+     * @param partial the partial text expected
+     */
     public void verifyTextContains(LoginState state, LoginItem item, String partial) {
         BaseScreen<?> screen = resolve(state);
 
@@ -67,6 +90,13 @@ public class LoginAssertions extends BaseAssertion {
                 "❌ %s | %s should contain <%s>".formatted(state.name(), item, partial));
     }
 
+    /**
+     * Verifies the state (enabled/disabled) of a login item.
+     *
+     * @param state       the login state
+     * @param item        the login item
+     * @param buttonState the expected button state
+     */
     public void verifyItemState(LoginState state, LoginItem item, ButtonState buttonState) {
         BaseScreen<?> screen = resolve(state);
 
@@ -78,6 +108,12 @@ public class LoginAssertions extends BaseAssertion {
         );
     }
 
+    /**
+     * Verifies if redirection to a login state occurred.
+     *
+     * @param state     the target login state
+     * @param condition "is" or "is NOT" redirect condition
+     */
     public void verifyRedirected(LoginState state, String condition) {
         Screen screen = (Screen) resolve(state);
 

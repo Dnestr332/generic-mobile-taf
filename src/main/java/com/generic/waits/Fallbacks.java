@@ -30,26 +30,55 @@ public class Fallbacks {
         this.driver = driver;
     }
 
+    /**
+     * Finds an element immediately without waiting.
+     *
+     * @param locator the locator
+     * @return the web element
+     */
     public WebElement relocate(By locator) {
         return driver.findElement(locator);
     }
 
+    /**
+     * Finds multiple elements immediately without waiting.
+     *
+     * @param locator the locator
+     * @return the list of web elements
+     */
     public List<WebElement> relocateList(By locator) {
         return driver.findElements(locator);
     }
 
+    /**
+     * Reads text from an element immediately.
+     *
+     * @param locator the locator
+     * @return the text from the element
+     */
     public String readText(By locator) {
         return MobileUtils.getActualText(driver.findElement(locator));
     }
 
+    /**
+     * Performs a standard pause for UI stabilization.
+     */
     public void pause() {
         MobileUtils.hardSleep(3, "UI settling");
     }
 
+    /**
+     * Performs a short pause for UI stabilization.
+     */
     public void shortPause() {
         MobileUtils.hardSleep(1, "Short UI settling");
     }
 
+    /**
+     * Taps at the center of an element.
+     *
+     * @param locator the locator
+     */
     public void tapByElementCenter(By locator) {
         WebElement el = driver.findElement(locator);
 
@@ -69,6 +98,11 @@ public class Fallbacks {
         driver.perform(Collections.singletonList(tap));
     }
 
+    /**
+     * Performs a native click gesture based on the platform.
+     *
+     * @param locator the locator
+     */
     public void clickNativeByPlatform(By locator) {
         WebElement el = driver.findElement(locator);
 

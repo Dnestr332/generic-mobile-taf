@@ -8,6 +8,9 @@ public final class TestEnvironment {
 
     private TestEnvironment() {}
 
+    /**
+     * @return the current platform defined in system properties
+     */
     public static Platform getPlatform() {
         String raw = System.getProperty("platform");
 
@@ -23,14 +26,23 @@ public final class TestEnvironment {
         }
     }
 
+    /**
+     * @return true if the current environment is CI
+     */
     public static boolean isCi() {
         return "true".equalsIgnoreCase(System.getenv("CI"));
     }
 
+    /**
+     * @return true if the platform is Android
+     */
     public static boolean isAndroid() {
         return getPlatform().isAndroid();
     }
 
+    /**
+     * @return true if the platform is iOS
+     */
     public static boolean isIos() {
         return getPlatform().isIos();
     }

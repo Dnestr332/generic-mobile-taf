@@ -16,6 +16,16 @@ public class FailureCatcher {
 
     private final PrettyPrinter prettyPrinter;
 
+    /**
+     * Executes a supplier with failure capture.
+     *
+     * @param action   the action being performed
+     * @param locator  the locator involved
+     * @param details  additional details
+     * @param supplier the supplier to execute
+     * @param <T>      the return type
+     * @return the result of the supplier
+     */
     public <T> T withFailureCapture(Action action, By locator, String details, Supplier<T> supplier) {
         long start = System.currentTimeMillis();
         prettyPrinter.start(action, locator, details);
@@ -33,10 +43,27 @@ public class FailureCatcher {
         }
     }
 
+    /**
+     * Executes a supplier with failure capture.
+     *
+     * @param action   the action being performed
+     * @param locator  the locator involved
+     * @param supplier the supplier to execute
+     * @param <T>      the return type
+     * @return the result of the supplier
+     */
     public <T> T withFailureCapture(Action action, By locator, Supplier<T> supplier) {
         return withFailureCapture(action, locator, null, supplier);
     }
 
+    /**
+     * Executes a runnable with failure capture.
+     *
+     * @param action   the action being performed
+     * @param locator  the locator involved
+     * @param details  additional details
+     * @param runnable the runnable to execute
+     */
     public void withFailureCapture(Action action, By locator, String details, Runnable runnable) {
         withFailureCapture(action, locator, null, () -> {
             runnable.run();

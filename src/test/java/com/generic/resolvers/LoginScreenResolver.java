@@ -14,6 +14,12 @@ public class LoginScreenResolver {
 
     private final InitialScreen initialScreen;
 
+    /**
+     * Resolves a login state to a specific screen object.
+     *
+     * @param state the login state
+     * @return the resolved screen
+     */
     public BaseScreen<?> resolveScreen(LoginState state) {
         return switch (state) {
             case INITIAL -> initialScreen;

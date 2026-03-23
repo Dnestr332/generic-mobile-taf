@@ -7,6 +7,14 @@ public final class EnumUtils {
 
     private EnumUtils() {}
 
+    /**
+     * Parses a string to an enum constant.
+     *
+     * @param enumClass the enum class
+     * @param rawValue  the raw string value
+     * @param <T>       the enum type
+     * @return the enum constant
+     */
     public static <T extends Enum<T>> T parse(Class<T> enumClass, String rawValue) {
         if (rawValue == null || rawValue.isBlank()) {
             throw new IllegalArgumentException(
@@ -34,6 +42,12 @@ public final class EnumUtils {
         }
     }
 
+    /**
+     * Converts a string to a standard enum key (uppercase, underscores).
+     *
+     * @param s the string to convert
+     * @return the formatted key
+     */
     public static String toEnumKey(String s) {
         return s == null ? "" :
                 s.trim().toUpperCase()

@@ -14,6 +14,11 @@ public final class ApiUtils {
 
     private ApiUtils() {}
 
+    /**
+     * Prints a POJO as pretty-printed JSON.
+     *
+     * @param pojo the object to print
+     */
     public static void prettyPrint(Object pojo) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -25,12 +30,25 @@ public final class ApiUtils {
         }
     }
 
+    /**
+     * Waits until a condition is met.
+     *
+     * @param condition the boolean condition supplier
+     * @param seconds   maximum wait time in seconds
+     */
     public static void waitUntil(BooleanSupplier condition, int seconds) {
         Awaitility.await()
                 .atMost(Duration.ofSeconds(seconds))
                 .until(condition::getAsBoolean);
     }
 
+    /**
+     * Waits until a condition is met and returns the result.
+     *
+     * @param condition the boolean condition supplier
+     * @param seconds   maximum wait time in seconds
+     * @return true if condition was met, false otherwise
+     */
     public static boolean waitUntilAndReturn(BooleanSupplier condition, int seconds) {
         try {
             Awaitility.await()

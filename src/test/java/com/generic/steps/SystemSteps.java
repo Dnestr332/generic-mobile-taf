@@ -16,16 +16,29 @@ public class SystemSteps {
     private final AppiumDriver driver;
     private final Environment env;
 
+    /**
+     * Step: system waits for specified seconds.
+     *
+     * @param seconds the number of seconds to wait
+     */
     @And("system waits for {int} seconds")
     public void systemWaitsForSeconds(long seconds) {
         MobileUtils.stabilizationSleep(seconds, this);
     }
 
+    /**
+     * Step: user taps neutral area.
+     */
     @And("user taps neutral area")
     public void userTapsNeutralArea() {
         MobileUtils.tapNeutralArea(driver);
     }
 
+    /**
+     * Step: user swipes up multiple times.
+     *
+     * @param limit the number of swipes
+     */
     @And("user swipes up {int} times")
     public void userSwipesUp(int limit) {
         MobileUtils.stabilizationSleep(1, this);
@@ -35,6 +48,11 @@ public class SystemSteps {
         }
     }
 
+    /**
+     * Step: system controls the app (terminates/activates/etc).
+     *
+     * @param action the action to perform
+     */
     @And("system {string} the app")
     public void systemControlsTheApp(String action) {
         String appName = isAndroid()

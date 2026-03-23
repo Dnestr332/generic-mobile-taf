@@ -8,6 +8,12 @@ import java.io.FileWriter;
 @Slf4j
 public class AllureReportUtils {
 
+    /**
+     * Writes Allure environment properties to a file.
+     *
+     * @param platform  the platform name
+     * @param allureDir the Allure results directory
+     */
     public static void writeAllureEnvironment(String platform, String allureDir) {
         try {
             File env = new File(allureDir + "/environment.properties");
@@ -24,6 +30,12 @@ public class AllureReportUtils {
         }
     }
 
+    /**
+     * Writes Allure executor information to a file.
+     *
+     * @param platform  the platform name
+     * @param allureDir the Allure results directory
+     */
     public static void writeExecutor(String platform, String allureDir) {
         try {
             File exec = new File(allureDir + "/executor.json");

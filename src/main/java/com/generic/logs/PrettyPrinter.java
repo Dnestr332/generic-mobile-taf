@@ -13,6 +13,13 @@ import static com.generic.logs.LogStyles.*;
 @ScenarioScope
 public class PrettyPrinter {
 
+    /**
+     * Logs the start of an action.
+     *
+     * @param action  the action performed
+     * @param locator the locator involved
+     * @param details additional details
+     */
     public void start(Action action, By locator, String details) {
         String prefix = BLUE + CLICK + RESET + " ";
         String shortTag = INFO_SHORT;
@@ -43,6 +50,11 @@ public class PrettyPrinter {
         );
     }
 
+    /**
+     * Logs the successful completion of an action.
+     *
+     * @param sec the duration in seconds
+     */
     public void ok(double sec) {
         log.info("   {} {} {} ({} sec)",
                 OK_SHORT,
@@ -52,6 +64,11 @@ public class PrettyPrinter {
         );
     }
 
+    /**
+     * Logs an action failure.
+     *
+     * @param t the throwable cause
+     */
     public void fail(Throwable t) {
         String line = (t.getMessage() == null)
                 ? "<no message>"

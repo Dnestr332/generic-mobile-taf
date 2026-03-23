@@ -23,6 +23,9 @@ public class MobileHooks {
     private final MobileDriverFactory mobileDriverFactory;
     private final AllureService allureService;
 
+    /**
+     * Hook to prepare the Appium server before tests (local only).
+     */
     @Before(order = -2)
     public void prepareAppium() {
         if (TestEnvironment.isCi()) {
@@ -31,6 +34,11 @@ public class MobileHooks {
         mobileDriverFactory.startLocalServer();
     }
 
+    /**
+     * Hook to log the test platform before each scenario.
+     *
+     * @param scenario the Cucumber scenario
+     */
     @Before(order = 1)
     public void annotatePlatform(Scenario scenario) {
         Platform platform = TestEnvironment.getPlatform();
@@ -40,6 +48,9 @@ public class MobileHooks {
         log.info(BLUE + "=================================================" + RESET);
     }
 
+    /**
+     * Hook to establish DB connection for scenarios tagged with @db.
+     */
     @Before("@db")
     public void getConnection() {
         try {
@@ -52,6 +63,11 @@ public class MobileHooks {
     }
 
     //region AFTER HOOKS
+    /**
+     * Hook to attach a screenshot if the scenario fails.
+     *
+     * @param scenario the Cucumber scenario
+     */
     @After(order = 2)
     public void screenshot(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -59,12 +75,18 @@ public class MobileHooks {
         }
     }
 
+    /**
+     * Hook to close the DB connection for scenarios tagged with @db.
+     */
     @After("@db")
     public void killConnection() {
         log.info("{} {} Closing DB connection...", INFO_SHORT, UNFLIP);
         DataBaseUtils.destroy();
     }
 
+    /**
+     * Hook to assert all soft assertions at the end of each scenario.
+     */
     @After
     public void tearDownSoftAssert() {
         try {

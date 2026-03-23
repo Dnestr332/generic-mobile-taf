@@ -32,6 +32,11 @@ public class MobileDriverFactory {
     private AppiumDriverLocalService service;
     private final Environment env;
 
+    /**
+     * Creates an AppiumDriver based on the current platform.
+     *
+     * @return the created AppiumDriver
+     */
     public AppiumDriver createDriver() {
         Platform platform = TestEnvironment.getPlatform();
 
@@ -66,6 +71,9 @@ public class MobileDriverFactory {
     // endregion
 
     //region START SERVER
+    /**
+     * Starts the local Appium server.
+     */
     public void startLocalServer() {
         int port = isAndroid() ? 4723 : 4725;
 
@@ -91,6 +99,9 @@ public class MobileDriverFactory {
         log.info("{} Appium server started on {}", OK_SHORT, port);
     }
 
+    /**
+     * Stops the local Appium server.
+     */
     public void stopLocalServer() {
         if (service != null && service.isRunning()) {
             log.info("{} Stopping Appium server…", INFO_SHORT);
@@ -99,6 +110,12 @@ public class MobileDriverFactory {
         }
     }
 
+    /**
+     * Checks if a server is running on a specific port.
+     *
+     * @param port the port to check
+     * @return true if running, false otherwise
+     */
     public boolean isServerRunning(int port) {
         try (Socket socket = new Socket("127.0.0.1", port)) {
             return true;
