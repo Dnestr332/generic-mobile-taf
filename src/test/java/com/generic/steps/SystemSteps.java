@@ -1,0 +1,46 @@
+package com.generic.steps;
+
+import com.generic.utils.MobileUtils;
+import io.appium.java_client.AppiumDriver;
+import io.cucumber.java.en.And;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
+
+import static com.generic.mobile.TestEnvironment.isAndroid;
+
+@Slf4j
+@RequiredArgsConstructor
+public class SystemSteps {
+
+    private final AppiumDriver driver;
+    private final Environment env;
+
+    @And("system waits for {int} seconds")
+    public void systemWaitsForSeconds(long seconds) {
+        MobileUtils.stabilizationSleep(seconds, this);
+    }
+
+    @And("user taps neutral area")
+    public void userTapsNeutralArea() {
+        MobileUtils.tapNeutralArea(driver);
+    }
+
+    @And("user swipes up {int} times")
+    public void userSwipesUp(int limit) {
+        MobileUtils.stabilizationSleep(1, this);
+        for (int i = 0; i < limit; i++) {
+            MobileUtils.swipeUp(driver);
+            MobileUtils.stabilizationSleep(1, this);
+        }
+    }
+
+    @And("system {string} the app")
+    public void systemControlsTheApp(String action) {
+        String appName = isAndroid()
+                ? env.getRequiredProperty("android.app.appPackage")
+                : env.getRequiredProperty("ios.rider.bundleId");
+
+        MobileUtils.controlApp(action, appName, driver);
+    }
+}

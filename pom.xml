@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.generic</groupId>
+    <artifactId>generic-mobile-taf</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <!-- Execution defaults -->
+        <ci>false</ci>
+        <retry.count>0</retry.count>
+        <fork.count>1</fork.count>
+        <reuse.forks>false</reuse.forks>
+        <!-- CORE -->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <maven.compiler.release>21</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- MAVEN -->
+        <maven.surefire.plugin.version>3.2.5</maven.surefire.plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <!-- SPRING -->
+        <spring.version>6.2.10</spring.version>
+        <!-- TESTNG -->
+        <testng.version>7.7.1</testng.version>
+        <!-- DB CONNECTORS -->
+        <ojdbc.version>23.4.0.24.05</ojdbc.version>
+        <mysql.version>8.2.0</mysql.version>
+        <!-- AUTOMATION -->
+        <selenium.version>4.34.0</selenium.version>
+        <appium.version>9.5.0</appium.version>
+        <restassured.version>5.5.5</restassured.version>
+        <!-- BDD ENGINE -->
+        <cucumber.version>7.22.2</cucumber.version>
+        <!-- ASSERTIONS -->
+        <assertj.version>3.24.2</assertj.version>
+        <!-- MISC UTILS -->
+        <datafaker.version>2.4.3</datafaker.version>
+        <dotenv.version>2.2.0</dotenv.version>
+        <!-- API UTILS -->
+        <lombok.version>1.18.38</lombok.version>
+        <jackson.version>2.19.0</jackson.version>
+        <awaitility.version>4.2.0</awaitility.version>
+        <!-- Allure REPORTS -->
+        <allure.version>2.29.0</allure.version>
+        <allure.cucumber.version>2.29.0</allure.cucumber.version>
+        <allure-maven.version>2.12.0</allure-maven.version>
+        <!-- SLF4J LOGGING -->
+        <slf4j-api.version>2.0.17</slf4j-api.version>
+        <logback-classic.version>1.5.13</logback-classic.version>
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <ci>false</ci>
+                <retry.count>0</retry.count>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>ci</id>
+            <properties>
+                <ci>true</ci>
+                <retry.count>1</retry.count>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>testng-ios</id>
+            <properties>
+                <testng.suite>src/test/resources/testng/testng-ios.xml</testng.suite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>testng-android</id>
+            <properties>
+                <testng.suite>src/test/resources/testng/testng-android.xml</testng.suite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>testng-rerun-android</id>
+            <properties>
+                <testng.suite>src/test/resources/testng/testng-rerun-android.xml</testng.suite>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>testng-rerun-ios</id>
+            <properties>
+                <testng.suite>src/test/resources/testng/testng-rerun-ios.xml</testng.suite>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <!-- Allure Maven Plugin -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>${allure-maven.version}</version>
+            </plugin>
+
+            <!-- Java 21 compiler -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+
+                <configuration>
+                    <release>${maven.compiler.release}</release>
+
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-bom</artifactId>
+            <version>${selenium.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+
+        <!-- DB drivers -->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc11</artifactId>
+            <version>${ojdbc.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <!-- API utils -->
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- Appium -->
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>${appium.version}</version>
+        </dependency>
+
+        <!-- RestAssured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>${restassured.version}</version>
+        </dependency>
+
+        <!-- Cucumber for Java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- Cucumber TestNg runner -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-spring</artifactId>
+            <version>${cucumber.version}</version>
+        </dependency>
+
+        <!-- Spring Core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- TestNG -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- Misc utils -->
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.datafaker</groupId>
+            <artifactId>datafaker</artifactId>
+            <version>${datafaker.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>${dotenv.version}</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-api.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
+        </dependency>
+
+        <!-- Allure Cucumber integration -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+            <version>${allure.cucumber.version}</version>
+        </dependency>
+    </dependencies>
+
+</project>
