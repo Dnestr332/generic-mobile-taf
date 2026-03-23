@@ -25,7 +25,8 @@ import java.time.Duration;
         "com.generic.pages",
         "com.generic.resolvers",
         "com.generic.api",
-        "com.generic.flows"
+        "com.generic.flows",
+        "com.generic.assertions"
 })
 public class MobileTestConfig {
 

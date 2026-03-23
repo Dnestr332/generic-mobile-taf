@@ -136,14 +136,23 @@
         </plugins>
     </build>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-bom</artifactId>
+                <version>${selenium.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
 
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-bom</artifactId>
-            <version>${selenium.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
+            <artifactId>selenium-java</artifactId>
         </dependency>
 
         <!-- DB drivers -->
