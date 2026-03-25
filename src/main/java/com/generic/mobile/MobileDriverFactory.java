@@ -173,10 +173,8 @@ public class MobileDriverFactory {
     }
 
     private XCUITestOptions iosAppOptions() {
-        String bundleId = env.getRequiredProperty("ios.app.bundleId");
-
         return baseIosOptions()
-                .setBundleId(bundleId);
+                .setBundleId(env.getRequiredProperty("ios.app.bundleId"));
     }
     //endregion
 

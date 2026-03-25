@@ -1,6 +1,7 @@
 package com.generic.mobile;
 
 import com.generic.enums.Platform;
+import com.generic.utils.EnumUtils;
 
 import java.util.Arrays;
 
@@ -14,16 +15,11 @@ public final class TestEnvironment {
     public static Platform getPlatform() {
         String raw = System.getProperty("platform");
 
-        if (raw == null || raw.isBlank()) {
-            throw new IllegalStateException("Platform is not defined.");
+        if (raw == null) {
+            raw = System.getProperty("testng.platform");
         }
 
-        try {
-            return Platform.valueOf(raw.trim().toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalStateException(
-                    "Unsupported platform: " + raw + ". Allowed values: " + Arrays.toString(Platform.values()));
-        }
+        return EnumUtils.parse(Platform.class, raw);
     }
 
     /**

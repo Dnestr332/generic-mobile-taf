@@ -16,7 +16,12 @@ public class AllureReportUtils {
      */
     public static void writeAllureEnvironment(String platform, String allureDir) {
         try {
-            File env = new File(allureDir + "/environment.properties");
+            File dir = new File(allureDir);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File env = new File(dir, "environment.properties");
 
             try (FileWriter writer = new FileWriter(env, false)) {
                 writer.write("Platform=" + platform + "\n");
@@ -38,7 +43,12 @@ public class AllureReportUtils {
      */
     public static void writeExecutor(String platform, String allureDir) {
         try {
-            File exec = new File(allureDir + "/executor.json");
+            File dir = new File(allureDir);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+
+            File exec = new File(dir, "executor.json");
 
             String json = "{\n" +
                     "  \"name\": \"" + platform + " REPORT\",\n" +

@@ -58,7 +58,7 @@ public class MobileHooks {
             log.info("{} {} DB connection established{}", OK_SHORT, BEAR, RESET);
         } catch (Exception e) {
             log.error("{} {} DB connection FAILED → {}",
-                    FAIL_SHORT, TABLEFLIP, e.getMessage());
+                    FAIL_SHORT, TABLE_FLIP, e.getMessage());
         }
     }
 

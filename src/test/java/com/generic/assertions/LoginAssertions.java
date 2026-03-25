@@ -23,7 +23,7 @@ public class LoginAssertions extends BaseAssertion {
 
     private final LoginScreenResolver screenResolver;
 
-    private BaseScreen resolve(LoginState state) {
+    private BaseScreen<?> resolve(LoginState state) {
         return screenResolver.resolveScreen(state);
     }
 

@@ -43,7 +43,7 @@ public final class LogStyles {
 
     public static final String LENNY        = "( ͡° ͜ʖ ͡°)";
     public static final String SHRUG        = "¯\\_(ツ)_/¯";
-    public static final String TABLEFLIP    = "(╯°□°）╯︵ ┻━┻";
+    public static final String TABLE_FLIP = "(╯°□°）╯︵ ┻━┻";
     public static final String UNFLIP       = "┬─┬ ノ( ゜-゜ノ)";
     public static final String BEAR         = "ʕ•ᴥ•ʔ";
     public static final String GHOST        = "(｡◕‿‿◕｡)";
